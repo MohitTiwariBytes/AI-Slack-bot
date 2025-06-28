@@ -23,7 +23,6 @@ handler = SlackRequestHandler(app)
 client_ai = OpenAI(api_key=os.getenv("OPENAI_API_KEY", "").strip())
 
 
-
 with open("instructions.txt", "r", encoding="utf-8") as f:
     system_instructions = f.read()
 
