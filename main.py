@@ -9,7 +9,6 @@ from dotenv import load_dotenv
 # Load env vars
 load_dotenv()
 
-
 app = App(
     token=os.getenv("SLACK_TOKEN"), signing_secret=os.getenv("SLACK_SIGNING_SECRET")
 )
@@ -37,7 +36,8 @@ def handle_mention(event, client, logger):
     channel = event["channel"]
     thread_ts = event.get("thread_ts") or event.get("ts")
     trigger_ts = event["ts"]
-    bot_user_id = event["blocks"][0]["elements"][0]["elements"][0]["user_id"]
+    auth = client.auth_test()
+    bot_user_id = auth["user_id"]
     raw_text = event.get("text", "")
     text = raw_text.replace(f"<@{bot_user_id}>", "").strip().lower()
 
